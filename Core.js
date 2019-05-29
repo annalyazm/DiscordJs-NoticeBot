@@ -43,17 +43,17 @@ bot.on('message', async message => {
               let Ch = bot.channels.get(gc)
               let ment
               try {
-                if (!Ch.permissionsFor(g.me).has(`SEND_MESSAGES`)) { ment = `${g.name}: 발신 실패 (메시지 발신 권한 없음)\n` }
-                Ch.send(ann)
+                if (!Ch.permissionsFor(g.me).has(`SEND_MESSAGES`)) {
+                  ment = `${g.name}: 발신 실패 (메시지 발신 권한 없음)\n`
+                } else { Ch.send(ann) }
               } catch (e) {
+                if (!g.me.hasPermission("MANAGE_CHANNELS")) {
                 ment = `${g.name}: 발신 실패 (채널 생성 권한 없음)\n`
+                } else {
                 g.createChannel(`공지-자동생성됨`).then(channel => {
                   channel.send(ann)
                 })
-                let tf = g.channels.find('name', '공지-자동생성됨')
-                if (tf !== 'null' || tf !== 'undefined' || tf) {
-                  ment = `${g.name}: 채널 자동 생성 및 발신 성공\n`
-                }
+              }
               } finally {
                 if (!ment) { ment = `성공적으로 모든 서버에 발신되었습니다!` }
                 errors += ment
