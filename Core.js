@@ -15,8 +15,13 @@ bot.on('message', async message => {
   if (message.content.includes(prefix)) {
     let filter = (reaction, user) => (reaction.emoji.name === '❌' || reaction.emoji.name === '⭕') && user.id === message.author.id
     if (OWNERS.includes(message.author.id)) {
-      let reason1 = message.content.replace(`${prefix} `, '')
-      message.channel.send(`${bot.guilds.size}개의 서버에 공지가 발신됩니다. 공지 내용은 다음과 같습니다\n${reason1}`).then((th) => {
+      let reason = message.content.replace(`${prefix} `, '')
+      let firstembed = new Discord.RichEmbed()
+      .setTitle(`${bot.guilds.size}개의 서버에 공지가 발신됩니다`)
+      .addField(`공지의 내용은 다음과 같습니다`, `\`\`\`\n${reason}\n\`\`\``)
+      .setColor(Math.floor(Math.random() * 16777214) + 1)
+      .setFooter('Discord.Js Notice Bot by 오아시스 (iOas // Oasics#5074)')
+      message.channel.send(firstembed).then((th) => {
         th.react('❌')
         th.react('⭕')
         th.awaitReactions(filter, {
@@ -29,8 +34,10 @@ bot.on('message', async message => {
               let gc
 	       g.channels.forEach(c => {
                 let cname = `${c.name}`
-                if (cname.includes('공지')) {
-                  gc = `${c.id}`
+                if (cname.includes('공지') || cname.includes('notice') || cname.includes('알림') || cname.includes('announce')) {
+                  if (!cname.includes('길드') && !cname.includes('벤') && !cname.includes('경고') && !cname.includes('guild') && !cname.includes('ban') && !cname.includes('warn')) {
+                    gc = `${c.id}`
+                  }
                 }
               })
               let ann = new Discord.RichEmbed()
@@ -50,6 +57,7 @@ bot.on('message', async message => {
                 if (!g.me.hasPermission("MANAGE_CHANNELS")) {
                 ment = `${g.name}: 발신 실패 (채널 생성 권한 없음)\n`
                 } else {
+                ment = `${g.name}: 채널 자동 생성 및 발신 성공\n`
                 g.createChannel(`공지-자동생성됨`).then(channel => {
                   channel.send(ann)
                 })
@@ -59,16 +67,19 @@ bot.on('message', async message => {
                 errors += ment
               }
             })
-            let reason = message.content.replace(`${prefix} `, '')
-            message.channel.send(`
-발신이 완료되었습니다!
-공지 내용은 [ ${reason} ] 입니다.
--------------------------------
-\`\`\`
-${errors}
-\`\`\`
-`)
-          } else { message.channel.send('공지 발신이 취소되었습니다.') }
+            let finalembed = new Discord.RichEmbed()
+            .setTitle('발신이 완료되었습니다!')
+            .addField('결과:', `\`\`\`\n${errors}\n \`\`\``)
+            .setColor(Math.floor(Math.random() * 16777214) + 1)
+            .setFooter('Discord.Js Notice Bot by 오아시스 (iOas // Oasics#5074)')
+            th.edit(finalembed)
+          } else {
+            let cemb = new Discord.RichEmbed()
+            .setTitle('공지 발신이 취소되었습니다')
+            .setColor(Math.floor(Math.random() * 16777214) + 1)
+            .setFooter('Discord.Js Notice Bot by 오아시스 (iOas // Oasics#5074)')
+            th.edit(cemb)
+          }
         })
       })
     } else {
