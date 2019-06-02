@@ -63,13 +63,13 @@ bot.on('message', async message => {
                 })
               }
               } finally {
-                if (!ment) { ment = `성공적으로 모든 서버에 발신되었습니다!` }
-                errors += ment
+                if (ment) { errors += ment }
               }
             })
+            if (errors === ``) { errors = '성공적으로 모든 서버에 발신되었습니다!' }
             let finalembed = new Discord.RichEmbed()
             .setTitle('발신이 완료되었습니다!')
-            .addField('결과:', `\`\`\`\n${errors}\n \`\`\``)
+            .addField('결과:', `\`\`\`\n${errors}\`\`\``)
             .setColor(Math.floor(Math.random() * 16777214) + 1)
             .setFooter('Discord.Js Notice Bot by 오아시스 (iOas // Oasics#5074)')
             th.edit(finalembed)
