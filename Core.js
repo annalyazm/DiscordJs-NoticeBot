@@ -83,7 +83,11 @@ bot.on('message', async message => {
         })
       })
     } else {
-	 message.channel.send('당신은 봇 관리자로 등록되어있지 않습니다.')
+	 let nope = new Discord.RichEmbed()
+	 .setTitle('당신은 봇 관리자로 등록되어있지 않습니다.')
+         .setColor(Math.floor(Math.random() * 16777214) + 1)
+         .setFooter('Discord.Js Notice Bot by 오아시스 (iOas // Oasics#5074)')
+	 message.channel.send(nope)
     }
   }
 })
