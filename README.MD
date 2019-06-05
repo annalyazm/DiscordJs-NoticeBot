@@ -1,5 +1,6 @@
 # DiscordJs-NoticeBot
 디스코드 봇의 간편한 공지를 위한 간단한 자바스크립트 프로그램입니다!  / This is "Global Announce" program for Discord.Js
+* setFooter 쪽에 iOas // Oasics#5074 빼시면 혼남
 
 1. 먼저 settings.js 에 접두사, 토큰, 관리자를 적습니다.
 
