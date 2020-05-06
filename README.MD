@@ -1,15 +1,4 @@
 # DiscordJs-NoticeBot
-디스코드 봇의 간편한 공지를 위한 간단한 자바스크립트 프로그램입니다!  / This is "Global Announce" program for Discord.Js
-* setFooter 쪽에 Oasics#5074 빼시면 혼남
 
-1. 먼저 settings.js 에 접두사, 토큰, 관리자를 적습니다.
-
-2. CMD 에
-npm install discord.js
-을 입력합니다.
-
-3. CMD 에
-node Core.js
-를 입력합니다.
-
-4. 디스코드에 와서 실행하면 됩니다. (예: !공지 <내용>)
+이것은 디스코드 봇이 접속해 있는 모든 서버에 발신하고 싶은 메시지를 보내주는 코드입니다. 알아서 쓰실 수 있을거라 믿겠습니다.
+참고로 이것은 나중에 다른 기능들과 함께 모듈화가 되어 npm 에 공유될 예정입니다.
